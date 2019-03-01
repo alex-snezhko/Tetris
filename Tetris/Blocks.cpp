@@ -112,8 +112,8 @@ class Line : public Shape
 		Block* arr = new Block[NUM_BLOCKS];
 		arr[0] = pivot;
 		arr[1] = Block(pivot.xPos - 1, pivot.yPos);
-		arr[2] = Block(pivot.xPos + 2, pivot.yPos);
-		arr[3] = Block(pivot.xPos + 3, pivot.yPos);
+		arr[2] = Block(pivot.xPos + 1, pivot.yPos);
+		arr[3] = Block(pivot.xPos + 2, pivot.yPos);
 		return arr;
 		delete[] arr;
 	}
@@ -128,9 +128,9 @@ class Square : public Shape
 	{
 		Block* arr = new Block[NUM_BLOCKS];
 		arr[0] = pivot;
-		arr[1] = Block(pivot.xPos - 1, pivot.yPos);
-		arr[2] = Block(pivot.xPos + 2, pivot.yPos);
-		arr[3] = Block(pivot.xPos + 3, pivot.yPos);
+		arr[1] = Block(pivot.xPos + 1, pivot.yPos);
+		arr[2] = Block(pivot.xPos + 1, pivot.yPos + 1);
+		arr[3] = Block(pivot.xPos, pivot.yPos + 1);
 		return arr;
 		delete[] arr;
 	}
@@ -146,8 +146,8 @@ class SShape : public Shape
 		Block* arr = new Block[NUM_BLOCKS];
 		arr[0] = pivot;
 		arr[1] = Block(pivot.xPos - 1, pivot.yPos);
-		arr[2] = Block(pivot.xPos + 2, pivot.yPos);
-		arr[3] = Block(pivot.xPos + 3, pivot.yPos);
+		arr[2] = Block(pivot.xPos, pivot.yPos + 1);
+		arr[3] = Block(pivot.xPos + 1, pivot.yPos + 1);
 		return arr;
 		delete[] arr;
 	}
@@ -162,9 +162,9 @@ class ZShape : public Shape
 	{
 		Block* arr = new Block[NUM_BLOCKS];
 		arr[0] = pivot;
-		arr[1] = Block(pivot.xPos - 1, pivot.yPos);
-		arr[2] = Block(pivot.xPos + 2, pivot.yPos);
-		arr[3] = Block(pivot.xPos + 3, pivot.yPos);
+		arr[1] = Block(pivot.xPos + 1, pivot.yPos);
+		arr[2] = Block(pivot.xPos, pivot.yPos + 1);
+		arr[3] = Block(pivot.xPos - 1, pivot.yPos + 1);
 		return arr;
 		delete[] arr;
 	}
@@ -180,8 +180,8 @@ class TShape : public Shape
 		Block* arr = new Block[NUM_BLOCKS];
 		arr[0] = pivot;
 		arr[1] = Block(pivot.xPos - 1, pivot.yPos);
-		arr[2] = Block(pivot.xPos + 2, pivot.yPos);
-		arr[3] = Block(pivot.xPos + 3, pivot.yPos);
+		arr[2] = Block(pivot.xPos + 1, pivot.yPos);
+		arr[3] = Block(pivot.xPos, pivot.yPos + 1);
 		return arr;
 		delete[] arr;
 	}
