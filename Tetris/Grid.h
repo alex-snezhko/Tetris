@@ -3,16 +3,10 @@
 
 class Grid
 {
+	Grid();
 public:
 	static const int WIDTH = 10;
-	static const int HEIGHT = 22;
+	static const int HEIGHT = 20;
 
 	static bool grid[WIDTH][HEIGHT];
-
-	//static void updateGrid(bool oldPos[], bool newPos[]);
-
-	//static void placeBlock(Block b);
-	
-private:
-	Grid();
 };
