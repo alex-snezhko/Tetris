@@ -9,9 +9,9 @@ public:
 
 	static bool grid[WIDTH][HEIGHT];
 
-	static void updateGrid(bool oldPos[], bool newPos[]);
+	//static void updateGrid(bool oldPos[], bool newPos[]);
 
-	static void placeBlock(Block b);
+	//static void placeBlock(Block b);
 	
 private:
 	Grid();
