@@ -19,7 +19,15 @@ void GameManager::setCurrentOnGrid(bool value)
 		// True if placed block has been offset
 		if (blocks[i].yPos < Grid::HEIGHT)
 		{
-			Grid::grid[blocks[i].yPos][blocks[i].xPos] = value;
+			Grid::grid[blocks[i].yPos][blocks[i].xPos].occupied = value;
+			if (value)
+			{
+				Grid::grid[blocks[i].yPos][blocks[i].xPos].color = blocks[i].color;
+			}
+			else
+			{
+				Grid::grid[blocks[i].yPos][blocks[i].xPos].color = RGB(255, 255, 255);
+			}
 		}
 	}
 	delete[] blocks;
@@ -30,7 +38,7 @@ bool GameManager::currentPositionOpen()
 	Block* blocks = currentShape->getBlocks();
 	for (int i = 0; i < Shape::NUM_BLOCKS; i++)
 	{
-		if (blocks[i].yPos < Grid::HEIGHT && Grid::grid[blocks[i].yPos][blocks[i].xPos])
+		if (blocks[i].yPos < Grid::HEIGHT && Grid::grid[blocks[i].yPos][blocks[i].xPos].occupied)
 		{
 			delete[] blocks;
 			return false;
@@ -53,7 +61,8 @@ void GameManager::initialize()
 	{
 		for (int j = 0; j < Grid::WIDTH; j++)
 		{
-			Grid::grid[i][j] = false;
+			Grid::grid[i][j].occupied = false;
+			Grid::grid[i][j].color = RGB(255, 255, 255);
 		}
 	}
 	score = 0;

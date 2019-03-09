@@ -1,6 +1,18 @@
 #pragma once
 #include "Blocks.h"
 
+struct GridTile
+{
+	bool occupied;
+	COLORREF color;
+
+	GridTile()
+	{
+		occupied = false;
+		color = RGB(255, 255, 255);
+	}
+};
+
 class Grid
 {
 	Grid();
@@ -13,5 +25,5 @@ public:
 	static const int WIDTH = 10;
 	static const int HEIGHT = 20;
 
-	static bool grid[HEIGHT][WIDTH];
+	static GridTile grid[HEIGHT][WIDTH];
 };

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Grid.h"
 
-bool Grid::grid[HEIGHT][WIDTH];
+GridTile Grid::grid[HEIGHT][WIDTH];
 
 void Grid::checkForCompletedRow()
 {
@@ -14,7 +14,7 @@ void Grid::checkForCompletedRow()
 		rowCompleted = true;
 		for (int j = 0; j < WIDTH; j++)
 		{
-			if (!grid[i][j])
+			if (!grid[i][j].occupied)
 			{
 				rowCompleted = false;
 			}
@@ -28,7 +28,7 @@ void Grid::checkForCompletedRow()
 			}
 			for (int j = 0; j < WIDTH; j++)
 			{
-				grid[i][j] = false;
+				grid[i][j].occupied = false;
 			}
 		}
 	}
@@ -47,11 +47,11 @@ void Grid::shiftDown(int lowestRow, int numRows)
 		{
 			if ((lowestRow + numRows + j) >= Grid::HEIGHT)
 			{
-				grid[lowestRow + j][i] = false;
+				grid[lowestRow + j][i].occupied = false;
 			}
 			else
 			{
-				grid[lowestRow + j][i] = grid[lowestRow + numRows + j][i];
+				grid[lowestRow + j][i].occupied = grid[lowestRow + numRows + j][i].occupied;
 			}
 		}
 	}

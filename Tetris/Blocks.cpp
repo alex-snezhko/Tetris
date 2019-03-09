@@ -5,20 +5,36 @@ Block::Block()
 {
 	xPos = 0;
 	yPos = 0;
+	color = RGB(0, 0, 0);
 }
 
 Block::Block(int x, int y)
 {
 	xPos = x;
 	yPos = y;
+	color = RGB(0, 0, 0);
+}
+
+Block::Block(int x, int y, COLORREF c)
+{
+	xPos = x;
+	yPos = y;
+	color = c;
 }
 
 void Block::moveTo(int x, int y)
 {
 	if (yPos < Grid::HEIGHT)
-		Grid::grid[yPos][xPos] = false;
+	{
+		Grid::grid[yPos][xPos].occupied = false;
+		Grid::grid[yPos][xPos].color = RGB(255, 255, 255);
+	}
+
 	if (y < Grid::HEIGHT)
-		Grid::grid[y][x] = true;
+	{
+		Grid::grid[y][x].occupied = true;
+		Grid::grid[yPos][xPos].color = color;
+	}
 
 	xPos = x;
 	yPos = y;
@@ -37,21 +53,21 @@ bool Shape::canChangePositions(Block* newPositions)
 	{
 		for (int j = 0; j < Grid::WIDTH; j++)
 		{
-			gridPositions[i][j] = Grid::grid[i][j];
+			gridPositions[i][j] = Grid::grid[i][j].occupied;
 		}
 	}
 
 	// Temporarily makes current positions false
 	for (int i = 0; i < NUM_BLOCKS; i++)
 	{
-		Grid::grid[blocks[i].yPos][blocks[i].xPos] = false;
+		Grid::grid[blocks[i].yPos][blocks[i].xPos].occupied = false;
 	}
 
 	for (int i = 0; i < NUM_BLOCKS; i++)
 	{
 		// Checks if new blocks are outside the boundaries of the board or touching another block
 		if (newPositions[i].xPos < 0 || newPositions[i].xPos >= Grid::WIDTH || newPositions[i].yPos < 0
-			|| newPositions[i].yPos < Grid::HEIGHT && Grid::grid[newPositions[i].yPos][newPositions[i].xPos])
+			|| newPositions[i].yPos < Grid::HEIGHT && Grid::grid[newPositions[i].yPos][newPositions[i].xPos].occupied)
 		{
 			return false;
 		}
@@ -62,7 +78,7 @@ bool Shape::canChangePositions(Block* newPositions)
 	{
 		for (int j = 0; j < Grid::WIDTH; j++)
 		{
-			Grid::grid[i][j] = gridPositions[i][j];
+			Grid::grid[i][j].occupied = gridPositions[i][j];
 		}
 	}
 	return true;
