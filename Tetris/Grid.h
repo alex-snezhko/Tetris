@@ -1,5 +1,6 @@
 #pragma once
 #include "Blocks.h"
+#include <vector>
 
 struct GridTile
 {
@@ -17,13 +18,13 @@ class Grid
 {
 	Grid();
 
-	static void checkForCompletedRow();
-
-	static void shiftDown(int lowestRow, int numRows);
-
 public:
 	static const int WIDTH = 10;
 	static const int HEIGHT = 20;
 
 	static GridTile grid[HEIGHT][WIDTH];
+
+	static int findNumCompletedRows();
+	static int* findCompletedRows();
+	static void clearRows();
 };

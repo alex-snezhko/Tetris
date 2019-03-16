@@ -3,56 +3,87 @@
 
 GridTile Grid::grid[HEIGHT][WIDTH];
 
-void Grid::checkForCompletedRow()
+int Grid::findNumCompletedRows()
 {
-	int lowestRow = Grid::HEIGHT;
 	int numRows = 0;
 
-	bool rowCompleted;
 	for (int i = 0; i < HEIGHT; i++)
 	{
-		rowCompleted = true;
+		int blocksInRow = 0;
 		for (int j = 0; j < WIDTH; j++)
 		{
-			if (!grid[i][j].occupied)
+			if (grid[i][j].occupied)
 			{
-				rowCompleted = false;
+				blocksInRow++;
 			}
 		}
-		if (rowCompleted)
+		if (blocksInRow == WIDTH)
 		{
 			numRows++;
-			if (lowestRow >= i)
-			{
-				lowestRow = i;
-			}
-			for (int j = 0; j < WIDTH; j++)
-			{
-				grid[i][j].occupied = false;
-			}
 		}
 	}
 
-	if (numRows > 0)
-	{
-		shiftDown(lowestRow, numRows);
-	}
+	return numRows;
 }
 
-void Grid::shiftDown(int lowestRow, int numRows)
+// returns null-character-terminated array of rows complete
+int* Grid::findCompletedRows()
 {
-	for (int i = 0; i < WIDTH; i++)
+	//std::vector<int> rowsComplete;
+	int* rowsComplete = new int[Shape::NUM_BLOCKS + 1];
+	unsigned int arrSize = 0;
+
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (int j = 0; j < numRows; j++)
+		int blocksInRow = 0;
+		for (int j = 0; j < WIDTH; j++)
 		{
-			if ((lowestRow + numRows + j) >= Grid::HEIGHT)
+			if (grid[i][j].occupied)
 			{
-				grid[lowestRow + j][i].occupied = false;
+				blocksInRow++;
+			}
+		}
+		if (blocksInRow == WIDTH)
+		{
+			rowsComplete[arrSize] = i;
+			arrSize++;
+		}
+	}
+
+	return rowsComplete;
+}
+
+void Grid::clearRows()
+{
+	int* rowsComplete = findCompletedRows();
+
+	int numRows = findNumCompletedRows();
+
+	for (int i = 0; i < numRows; i++)
+	{
+		for (int j = 0; j < WIDTH; j++)
+		{
+			if (rowsComplete[i] + 1 < HEIGHT)
+			{
+				for (int k = rowsComplete[i]; k < HEIGHT - 1; k++)
+				{
+					grid[k][j].occupied = grid[k + 1][j].occupied;
+					grid[k][j].color = grid[k + 1][j].color;
+				}
 			}
 			else
 			{
-				grid[lowestRow + j][i].occupied = grid[lowestRow + numRows + j][i].occupied;
+				grid[rowsComplete[i]][j].occupied = false;
+				grid[rowsComplete[i]][j].color = RGB(255, 255, 255);
 			}
 		}
+
+		// Accounts for blocks shifting down
+		for (int j = 0; j < numRows; j++)
+		{
+			rowsComplete[j]--;
+		}
 	}
+
+	delete[] rowsComplete;
 }
